@@ -22,14 +22,22 @@ const erase = async (req, res) => {
       console.log(req.params.id);
 
       await variable.findByIdAndDelete(req.params.id)
-      return res.status(200).json({
-         succes: true
-      })
+      res.redirect('/admin')
    }
    catch (err) {
       res.send(err)
    }
 
+}
+
+const deletepr = async (req, res) => {
+   try {
+      await item.findByIdAndDelete(req.params.id)
+      res.redirect('/admin')
+   }
+   catch (err) {
+      res.send(err)
+   }
 }
 // login and sign up
 
@@ -214,7 +222,7 @@ export const updateUser = async (req, res) => {
 export {
    login, sign, user, erase, loginuser, addUser, adminAddUser,
    showUsers, logout, update, addProduct, addedProduct, showProduct,
-   editedVersion, updateProd, NewPage
+   editedVersion, updateProd, NewPage, deletepr
 }
 
 

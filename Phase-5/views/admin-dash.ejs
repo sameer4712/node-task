@@ -41,9 +41,14 @@
             <td class="pl-4  px-6 py-4"><%=user.email %></td>
             <td class="pl-8  px-6 py-4"><%=user.phone %></td>
             <td class="pl-8  px-6 py-4"><%=user.status %></td>
-            <td>
-              <a href="/update/<%=user._id %>" class="bg-green-400 px-6 rounded pt-2 pb-2">Edit</a>
-              <a href="/delete/<%=user._id %>" onclick="deleteuser()" class="bg-red-400 px-3 rounded ml-4 pt-2 pb-2">Delete</a>
+            <td class="flex mt-2">
+              <form action="/update/<%=user._id %>">
+                <button class="bg-green-400 px-6 rounded pt-2 pb-2">Edit</button>
+              </form>
+              <form action="/delete/<%=user._id %>">
+                <button onclick="return confirm('Are you sure you want to delete this data?')" class="bg-red-400 px-3 rounded ml-4 pt-2 pb-2">Delete</button>
+              </form>
+
             </td>
           </tr>
           <%} }) %>
@@ -74,7 +79,7 @@
             <td class="pl-8  px-6 py-4"><%=product.description %></td>
             <td>
               <a href="/updatepr/<%=product._id %>" class="bg-green-400 px-6 rounded pt-2 pb-2">Edit</a>
-              <a href="/delete/<%=product._id %>" class="bg-red-400 px-3 rounded ml-4 pt-2 pb-2">Delete</a>
+              <a href="/deletepr/<%=product._id %>" onclick="return confirm('Are you sure you want to delete this data?')" class="bg-red-400 px-3 rounded ml-4 pt-2 pb-2">Delete</a>
             </td>
           </tr>
           <% }) %>
@@ -84,26 +89,32 @@
     </div>
   </div>
 
-  <script>
-    const deleteuser = async (id) => {
-      const response = await fetch(`/delete/${id}`,{
-        method: "GET",
-      })
-      const resjson = await response.json();console.log(resjson);
-      
-      const con = confirm("are you sure?")
-      if (con == true) {
-        if (resjson.success == true) {
-          alert("User Deleted!")
-          window.location.reload()
-        }
-      } else {
-        alert("user not deleted!")
-      }
+  <!-- <script>
+    function deleteuser(_id) {
+      const con = confirm("Are you sure you want to delete?")
+      if (con) {
+        fetch(`/delete/${(_id)}`), {
+            method: 'DELETE'
+          }
+          .then(res => {
+            if (res.ok) {
+              alert('successfully deleted')
+            } else {
+              console.error("failed to delete item.");
+              alert("deletion failed")
+            }
+          })
+          .catch(eror => {
+            console.error(error);
+            alert("deletion failed")
 
-    }
-   
-  </script>
+          })
+      } else {
+        alert("deletion canceled")
+      }
+      location.reload()
+    } -->
+  <!-- </script> -->
 </body>
 
 </html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Show Products</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            dark: '#0f172a',
+            lightDark: '#1e293b',
+            accent: '#3b82f6'
+          }
+        }
+      }
+    };
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="bg-gradient-to-br from-white blue-400 to-blue-300 min-h-screen text-white font-sans">
+
+  <div class="max-w-7xl mx-auto px-4 py-10">
+    <h1 class="text-4xl font-bold text-center mb-10 text-black">All PRODUCTS</h1>
+
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+
+      
+        <% something.forEach((user)=>{ %>
+      <div class="bg-green-500 backdrop-blur-sm border border-white/10 rounded-xl overflow-hidden shadow-lg hover:scale-[1.02] transition transform duration-200">
+
+
+        <div class="p-5 space-y-2">
+          <p class="text-black text-xl">Name: <span class="text-white font-medium"></span><%=user.name  %></p>
+          <p class="text-black text-xl">Price: <span class="text-white font-medium"></span><%=user.price  %></p>
+          <p class="text-black text-xl">Description: <span class="text-white font-medium"></span><%=user.description  %></p>
+        </div>
+
+      </div>
+     <% }) %>
+
+    </div>
+  </div>
+
+</body>
+
+</html>

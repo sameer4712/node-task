@@ -21,6 +21,7 @@ import {updateUser} from '../controller/controller.js'
  import {editedVersion} from '../controller/controller.js'
  import {updateProd} from '../controller/controller.js'
  import {NewPage} from '../controller/controller.js'
+ import {deletepr} from '../controller/controller.js'
 
 
 
@@ -60,5 +61,5 @@ router.post('/addedProd',addedProduct)
 router.get('/showProd',showProduct)
 router.get('/updatepr/:id',editedVersion)
 router.post('/updateProduct/:id',updateProd)
-
+router.get("/deletepr/:id",deletepr)
 export default router

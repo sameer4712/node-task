@@ -123,8 +123,7 @@
   <script>
   const status = async (id, status) => {
             const newStatus = status == 'active' ? 'inactive' : 'active';
-  
-            
+
             const response = await fetch(`/status/${id}`, {
                 method: "PATCH",
                 headers: {

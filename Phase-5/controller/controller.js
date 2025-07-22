@@ -171,7 +171,6 @@ const adminAddUser = (async (req, res) => {
 
 const status = async (req, res) => {
    let id = req.params.id;
-   console.log(id);
    
    try {
       await variable.findByIdAndUpdate(id, {

@@ -29,8 +29,9 @@
             <th class="px-6 py-3 text-left text-xl font-medium uppercase tracking-wider">Username</th>
             <th class="px-6 py-3 text-left text-xl font-medium uppercase tracking-wider">Email</th>
             <th class="px-6 py-3 text-left text-xl font-medium uppercase tracking-wider">Phone No.</th>
-            <th class="px-6 py-3 text-left text-xl font-medium uppercase tracking-wider">Status</th>
             <th class="px-6 py-3 text-left text-xl font-medium uppercase tracking-wider">Actions</th>
+            <th class="px-6 py-3 text-left text-xl font-medium uppercase tracking-wider">Status</th>
+
           </tr>
         </thead>
         <tbody id="userTableBody" class="bg-white divide-y divide-gray-200">
@@ -40,7 +41,11 @@
             <td class="pl-8 px-6 py-4"><%=user.name %></td>
             <td class="pl-4  px-6 py-4"><%=user.email %></td>
             <td class="pl-8  px-6 py-4"><%=user.phone %></td>
-            <td class="pl-8  px-6 py-4"><%=user.status %></td>
+
+            <td class="py-4 px-8"><p  class="p-2 text-white rounded-lg <%= user.status=='active'?'bg-green-500':'bg-red-500' %>" onclick="status('<%= user._id%>','<%= user.status%>')">
+                <%= user.status=='active' ?'Active':'Inactive' %>
+            </p>
+            </td>
             <td class="flex mt-2">
               <form action="/update/<%=user._id %>">
                 <button class="bg-green-400 px-6 rounded pt-2 pb-2">Edit</button>
@@ -115,6 +120,29 @@
       location.reload()
     } -->
   <!-- </script> -->
+  <script>
+  const status = async (id, status) => {
+            const newStatus = status == 'active' ? 'inactive' : 'active';
+  
+            
+            const response = await fetch(`/status/${id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ status: newStatus })
+            })
+            const data = await response.json()
+            if (data.success == true) {
+                alert("Status Updated")
+                window.location.reload()
+            }
+            else {
+                alert("Status not updated")
+            }
+        }
+  </script>
+
 </body>
 
 </html>

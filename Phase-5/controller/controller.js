@@ -169,6 +169,23 @@ const adminAddUser = (async (req, res) => {
    res.redirect('/admin')
 })
 
+const status = async (req, res) => {
+   let id = req.params.id;
+   console.log(id);
+   
+   try {
+      await variable.findByIdAndUpdate(id, {
+         status: req.body.status
+      })
+      res.json({ success: true })
+   }
+   catch (err) {
+      res.status(500).json({ success: false, error: err.message });
+      console.log(err);
+      
+   }
+}
+
 
 const showUsers = async (req, res) => {
    if (req.session.admin) {
@@ -184,7 +201,7 @@ const showUsers = async (req, res) => {
 
 const logout = (req, res) => {
    req.session.destroy(() => {
-      console.log("destroid");
+      console.log("Destroy");
       res.redirect('/')
 
    })
@@ -222,7 +239,7 @@ export const updateUser = async (req, res) => {
 export {
    login, sign, user, erase, loginuser, addUser, adminAddUser,
    showUsers, logout, update, addProduct, addedProduct, showProduct,
-   editedVersion, updateProd, NewPage, deletepr
+   editedVersion, updateProd, NewPage, deletepr,status
 }
 
 

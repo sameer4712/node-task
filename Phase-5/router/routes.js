@@ -11,6 +11,7 @@ import {adminAddUser} from '../controller/controller.js'
 import {showUsers} from '../controller/controller.js'
 import {update} from '../controller/controller.js'
 import {updateUser} from '../controller/controller.js'
+import {status} from '../controller/controller.js'
 
 
 // product
@@ -51,7 +52,7 @@ router.get("/admin",showUsers)
 router.get("/delete/:id",erase)
 router.get("/update/:id",update)
 router.post("/updateUser/:id",updateUser)
-
+router.patch("/status/:id",status)
 
 // product
 

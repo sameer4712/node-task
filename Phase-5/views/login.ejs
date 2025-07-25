@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login Page</title>
-   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body>
@@ -14,6 +14,11 @@
       <header>
         <img class="w-20 mx-auto mb-5" src="https://img.icons8.com/fluent/344/year-of-tiger.png" />
       </header>
+      <% if(message && message.length>0){ %>
+      <div class="max-w-md mx-auto my-4 px-4 py-2 bg-red-100 text-red-700 rounded shadow">
+        <%=message[0] %>
+      </div>
+      <% } %>
       <form action="/adminHome" method="post">
         <div>
           <label class="block mb-2 text-indigo-500" for="Email">Email </label>

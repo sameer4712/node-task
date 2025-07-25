@@ -39,7 +39,8 @@ router.use((req, res, next)=>{
       next()
    }
    else {
-      res.send("entry restricted")
+      req.flash("message","entry restricted")
+      return res.redirect("/")
    }
 })
 

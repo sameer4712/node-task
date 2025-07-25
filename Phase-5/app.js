@@ -4,6 +4,7 @@ import mongoose from 'mongoose'
 import productRoutes from './router/productsRoutes.js'
 import routes from './router/routes.js'
 import { logout } from './controller/controller.js'
+import flash from 'connect-flash'
 // import variable from './models/user.js'
 
 const app = express()
@@ -34,7 +35,7 @@ const uri = ("mongodb://localhost:27017/PostMan")
 mongoose.connect(uri).then(() => {
     console.log("CONNECTED");
 })
-
+app.use(flash())
 app.use(routes)
 
 app.use(productRoutes)

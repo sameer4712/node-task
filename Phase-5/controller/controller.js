@@ -42,7 +42,8 @@ const deletepr = async (req, res) => {
 // login and sign up
 
 const login = (req, res) => {
-   res.render('login')
+   const message = req.flash("message")
+   res.render('login',{message})
 }
 
 const sign = (req, res) => {
@@ -128,15 +129,16 @@ const loginuser = async (req, res) => {
    const { email, password } = req.body;
    console.log(email);
 
-   try {
       const check = await variable.findOne({ email });
       if (!check) {
-         res.send('user not found')
+         req.flash("message","user not found");
+         return res.redirect('/')
 
       }
       const hashedPass = await bcrypt.compare(password, check.password)
       if (!hashedPass) {
-         res.send("NOt Matching Email and Password")
+         req.flash("message","incorrect password")
+         return res.redirect('/')
       }
 
       if (check.role == false) {
@@ -144,12 +146,6 @@ const loginuser = async (req, res) => {
       }
       req.session.admin = check;
       return res.redirect('/admin')
-
-
-   } catch (error) {
-      res.send('wrong details')
-   }
-
 };
 
 

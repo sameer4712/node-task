@@ -5,6 +5,7 @@ import productRoutes from './router/productsRoutes.js'
 import routes from './router/routes.js'
 import { logout } from './controller/controller.js'
 import flash from 'connect-flash'
+import MongoStore from 'connect-mongo'
 // import variable from './models/user.js'
 
 const app = express()
@@ -16,7 +17,11 @@ app.use(session(
     {
         secret: "key that will asign a session",
         saveUninitialized: false,
-        resave: false
+        resave: false,
+        store:MongoStore.create({
+            mongoUrl:"mongodb://localhost:27017/PostMan",
+            collectionName:"session"
+        })
     }
 )
 )

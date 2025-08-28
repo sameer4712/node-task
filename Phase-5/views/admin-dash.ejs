@@ -43,7 +43,7 @@
             <td class="pl-8  px-6 py-4"><%=user.phone %></td>
 
             <td class="py-4 px-8"><p  class="p-2 text-white rounded-lg <%= user.status=='active'?'bg-green-500':'bg-red-500' %>" onclick="status('<%= user._id%>','<%= user.status%>')">
-                <%= user.status=='active' ?'Active':'Inactive' %>
+                <%= user.status=='active' ?'active':'inactive' %>
             </p>
             </td>
             <td class="flex mt-2">

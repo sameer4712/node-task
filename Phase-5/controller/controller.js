@@ -43,7 +43,7 @@ const deletepr = async (req, res) => {
 
 const login = (req, res) => {
    const message = req.flash("message")
-   res.render('login',{message})
+   res.render('login', { message })
 }
 
 const sign = (req, res) => {
@@ -129,23 +129,28 @@ const loginuser = async (req, res) => {
    const { email, password } = req.body;
    console.log(email);
 
-      const check = await variable.findOne({ email });
-      if (!check) {
-         req.flash("message","user not found");
-         return res.redirect('/')
+   const check = await variable.findOne({ email });
+   if (!check) {
+      req.flash("message", "user not found");
+      return res.redirect('/')
 
-      }
-      const hashedPass = await bcrypt.compare(password, check.password)
-      if (!hashedPass) {
-         req.flash("message","incorrect password")
-         return res.redirect('/')
-      }
+   }
+   const hashedPass = await bcrypt.compare(password, check.password)
+   if (!hashedPass) {
+      req.flash("message", "incorrect password")
+      return res.redirect('/')
+   }
 
-      if (check.role == false) {
+   if (check.role == false) {
+      if (check.status != "active") {
+         req.flash({ message: "YOu are disable" })
+      }
+      else {
          res.redirect('/product')
       }
-      req.session.admin = check;
-      return res.redirect('/admin')
+   }
+   req.session.admin = check;
+   return res.redirect('/admin')
 };
 
 
@@ -167,7 +172,7 @@ const adminAddUser = (async (req, res) => {
 
 const status = async (req, res) => {
    let id = req.params.id;
-   
+
    try {
       await variable.findByIdAndUpdate(id, {
          status: req.body.status
@@ -177,7 +182,7 @@ const status = async (req, res) => {
    catch (err) {
       res.status(500).json({ success: false, error: err.message });
       console.log(err);
-      
+
    }
 }
 
@@ -195,7 +200,12 @@ const showUsers = async (req, res) => {
 }
 
 const logout = (req, res) => {
-   req.session.destroy(() => {
+   req.session.destroy((err) => {
+      if(err)
+      {
+         console.log(err);
+         
+      }
       console.log("Destroy");
       res.redirect('/')
 
@@ -234,7 +244,7 @@ export const updateUser = async (req, res) => {
 export {
    login, sign, user, erase, loginuser, addUser, adminAddUser,
    showUsers, logout, update, addProduct, addedProduct, showProduct,
-   editedVersion, updateProd, NewPage, deletepr,status
+   editedVersion, updateProd, NewPage, deletepr, status
 }
 
 

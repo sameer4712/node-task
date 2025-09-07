@@ -1,7 +1,6 @@
 const fs = require('fs')
 
 // create directory
-
 if(!fs.existsSync('./asset'))
 {
 fs.mkdir('./asset',(err)=>{
